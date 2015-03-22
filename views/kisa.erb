@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-controller="TulospalveluCtrl">
   <h1><%= @kisa['nimi'] %></h1>
 
   <ul class="nav nav-tabs">
@@ -17,17 +17,38 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr ng-repeat="kilpailija in tulokset">
       <td>
-        1
+        {{$index+1}}
       </td>
       <td>
-        Matti Meikäläinen
+        {{ kilpailija.nimi }}
       </td>
       <td>
-        02:03.22
+        {{kilpailija.aika}}
       </td>
     </tr>
     </tbody>
   </table>
+
+  <h2>Lisää aika</h2>
+
+  <form>
+    <div class="form-group">
+      <label for="kilpailija">Kilpailija</label>
+      <label for="valipiste">Välipiste</label>
+      <label for="aika">Aika</label>
+    </div>
+  </form>
+
 </div>
+
+<script>
+  $(document).ready(function() {
+      $('#nav a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+      })
+  })
+
+</script>
