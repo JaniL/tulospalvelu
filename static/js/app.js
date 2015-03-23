@@ -26,6 +26,12 @@ tulospalvelu.controller('TulospalveluCtrl', ['$scope', '$filter', function ($sco
     }
 
     $scope.lisaaLahtolistaan = function(kilpailija) {
+        var i = $scope.lahtolista.indexOf(kilpailija.nimi);
+
+        if (i != -1) {
+            $scope.lahtolista.splice(i,1);
+        }
+
         $scope.lahtolista.splice(kilpailija.lahtosijoitus-1,0,kilpailija.nimi);
     }
 
