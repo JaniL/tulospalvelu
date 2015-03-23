@@ -47,5 +47,9 @@ tulospalvelu.controller('KilpailijaCtrl', function($scope) {
             'kansallisuus': kilpailija.kansallisuus,
             'syntymaaika': kilpailija.syntymaaika.toLocaleDateString()
         });
-    }
+    };
+
+    $scope.muokkaaKilpailija = function(indeksi) {
+
+    };
 })

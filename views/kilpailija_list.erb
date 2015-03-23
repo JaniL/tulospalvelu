@@ -1,0 +1,48 @@
+<div class="container" ng-controller="KilpailijaCtrl">
+  <h1>Kilpailijat</h1>
+  <div class="row">
+    <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nimi</th>
+              <th>Kansallisuus</th>
+              <th>Syntymäaika</th>
+              <!-- <th></th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="kilpailija in kilpailijat" data-id="{{$index}}">
+              <td>{{ kilpailija.nimi }}</td>
+              <td>{{ kilpailija.kansallisuus }}</td>
+              <td>{{ kilpailija.syntymaaika }}</td>
+              <!-- <td><a href="#" ng-click="muokkaaKilpailija({{$index}})">Muokkaa</a></td> -->
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+      <h2>Lisää kilpailija</h2>
+      <form>
+        <div class="form-group">
+            <!-- <label for="nimi">Nimi</label> -->
+            <input type="text" name="nimi" placeholder="Nimi" class="form-control" ng-model="kilpailija.nimi" />
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="kansallisuus" placeholder="Kansallisuus" class="form-control"
+                 ng-model="kilpailija.kansallisuus"/>
+        </div>
+
+        <div class="form-group">
+          <input type="date" name="syntymaaika" placeholder="Syntymäaika" class="form-control"
+                 ng-model="kilpailija.syntymaaika" />
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="lisaaKilpailija(kilpailija)">Lisää</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
