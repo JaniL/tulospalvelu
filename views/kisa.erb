@@ -1,45 +1,109 @@
 <div class="container" ng-controller="TulospalveluCtrl">
   <h1><%= @kisa['nimi'] %></h1>
 
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Lisää aika</h2>
+
+      <form>
+        <div class="form-group form-inline">
+          <label for="kilpailija">Kilpailija</label>
+          <select class="form-control" ng-model="aika.nimi">
+            <option ng-repeat="kilpailija in kilpailijat">{{ kilpailija }}</option>
+          </select>
+          <label for="valipiste">Välipiste</label>
+          <input class="form-control" type="number" ng-model="aika.valipiste" name="valipiste" min="1" step="1" value="1" />
+        </div>
+
+        <div class="form-group">
+          <div class="form-inline">
+            <label for="aika">Aika</label>
+            <input ng-model="aika.minuutit" type="number" min="0" step="1" class="input-sm form-control" id="minuutit" placeholder="Minuutit">
+            <input ng-model="aika.sekunnit" type="number" min="0" step="1" class="input-sm form-control" id="minuutit" placeholder="Sekunnit">
+            <input ng-model="aika.millisekunnit" type="number" min="0" step="1" class="input-sm form-control" id="minuutit" placeholder="Millisekunnit">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="lisaaAika(aika)">Lisää</button>
+        </div>
+
+
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h2>Lisää kilpailija lähtölistaan</h2>
+      <form>
+        <div class="form-group form-inline">
+          <label for="lahtoKilpailija">Kilpailija</label>
+          <select class="form-control" ng-model="kilpailija.nimi">
+            <option ng-repeat="kilpailija in kilpailijat">{{ kilpailija }}</option>
+          </select>
+          <label for="lahtosijoitus">Lähtösijoitus</label>
+          <input class="form-control" type="number" ng-model="kilpailija.lahtosijoitus" name="lahtosijoitus" min="1" step="1" value="1" />
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="lisaaLahtolistaan(kilpailija)">Lisää</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="#">Lähtölista</a></li>
-    <li role="presentation"><a href="#">1. välipiste</a></li>
-    <li role="presentation"><a href="#">2. välipiste</a></li>
-    <li role="presentation"><a href="#">Lopputulokset</a></li>
+    <li role="presentation" class="active"><a href="#lahtolista" aria-controls="lahtolista" role="tab" data-toggle="tab">Lähtölista</a></li>
+    <li role="presentation"><a href="#valipiste" aria-controls="valipiste" role="tab" data-toggle="tab">1. välipiste</a></li>
+    <li role="presentation"><a href="#valipiste" aria-controls="valipiste" role="tab" data-toggle="tab">2. välipiste</a></li>
+    <li role="presentation"><a href="#valipiste" aria-controls="valipiste" role="tab" data-toggle="tab">Lopputulokset</a></li>
   </ul>
 
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Sijoitus</th>
-      <th>Kilpailija</th>
-      <th>Aika</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="kilpailija in tulokset">
-      <td>
-        {{$index+1}}
-      </td>
-      <td>
-        {{ kilpailija.nimi }}
-      </td>
-      <td>
-        {{kilpailija.aika}}
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  <h2>Lisää aika</h2>
-
-  <form>
-    <div class="form-group">
-      <label for="kilpailija">Kilpailija</label>
-      <label for="valipiste">Välipiste</label>
-      <label for="aika">Aika</label>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="lahtolista">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Lähtösijoitus</th>
+          <th>Kilpailija</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="kilpailija in lahtolista track by $index">
+          <td>{{$index+1}}</td>
+          <td>{{ kilpailija }}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </form>
+    <div role="tabpanel" class="tab-pane" id="valipiste">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Sijoitus</th>
+          <th>Kilpailija</th>
+          <th>Aika</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="kilpailija in tulokset | orderBy:'kilpailija.aika'">
+          <td>
+            {{$index+1}}
+          </td>
+          <td>
+            {{ kilpailija.nimi }}
+          </td>
+          <td>
+            {{ aika(kilpailija.aika) }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
+
 
 </div>
 
