@@ -31,3 +31,21 @@ tulospalvelu.controller('TulospalveluCtrl', ['$scope', '$filter', function ($sco
 
     $scope.orderProp = 'aika';
 }]);
+
+tulospalvelu.controller('KilpailijaCtrl', function($scope) {
+    $scope.kilpailijat = [
+        {
+            'nimi': 'Matti V',
+            'kansallisuus': 'FI',
+            'syntymaaika': new Date(1992,11,11).toLocaleDateString()
+        }
+    ];
+
+    $scope.lisaaKilpailija = function(kilpailija) {
+        $scope.kilpailijat.push({
+            'nimi': kilpailija.nimi,
+            'kansallisuus': kilpailija.kansallisuus,
+            'syntymaaika': kilpailija.syntymaaika.toLocaleDateString()
+        });
+    }
+})

@@ -13,3 +13,7 @@ get '/kisa/:id' do
 
   erb :kisa, :layout => :layout
 end
+
+get '/kilpailija' do
+  erb :kilpailija_list, :layout => :layout
+end
