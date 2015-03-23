@@ -1,7 +1,7 @@
 var tulospalvelu = angular.module('tulospalvelu', []);
 
 tulospalvelu.controller('TulospalveluCtrl', ['$scope', '$filter', function ($scope,$filter) {
-    $scope.kilpailijat = ["Matti Meikäläinen"];
+    $scope.kilpailijat = ["Matti Meikäläinen", "Jukka Kovahiihtäjä", "Dope Matti"];
     $scope.tulokset = [
         {'nimi': 'Matti Meikäläinen',
             'aika': 122022},

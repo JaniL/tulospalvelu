@@ -10,6 +10,7 @@ end
 get '/kisa/:id' do
   @kisa = {}
   @kisa['nimi'] = 'Kumpulan hiihtokisat'
+  @kisa['paivamaara'] = '26.03.2014'
 
   erb :kisa, :layout => :layout
 end
