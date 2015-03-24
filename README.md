@@ -10,9 +10,9 @@ Dokumentaatio: https://github.com/JaniL/tulospalvelu/raw/master/doc/dokumentaati
 
 ## How to run
 
-   git clonehttps://github.com/JaniL/tulospalvelu.git
-   bundle install
-   bundle exec foreman start
+    git clone https://github.com/JaniL/tulospalvelu.git
+    bundle install
+    bundle exec foreman start
 
 ## UI Demo
 
