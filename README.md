@@ -8,6 +8,12 @@ Aiheen kuvaus: http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aih
 
 Dokumentaatio: https://github.com/JaniL/tulospalvelu/raw/master/doc/dokumentaatio.pdf
 
+## How to run
+
+   git clonehttps://github.com/JaniL/tulospalvelu.git
+   bundle install
+   bundle exec foreman start
+
 ## UI Demo
 
 Kisojen listaus / etusivu: http://hiihtotulospalvelu.herokuapp.com/
