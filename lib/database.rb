@@ -4,7 +4,7 @@ require 'uri'
 class Database
 
   def getUri
-    URI.parse(ENV['DATABASE_URL'] || "")
+    URI.parse(ENV['DATABASE_URL'] || 'postgres://127.0.0.1/tulospalvelu')
   end
 
   def createConnection

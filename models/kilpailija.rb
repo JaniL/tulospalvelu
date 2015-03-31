@@ -1,27 +1,17 @@
-require '../lib/database'
+require './lib/database.rb'
+require './lib/base_model.rb'
 
-class Kilpailija
+class Kilpailija < BaseModel
+
+  @@sarakkeet = ['id','nimi','kansallisuus','sukupuoli','syntynyt']
 
   def initialize(rivi=nil)
-    if rivi != nil
-      sarakkeet = rivi.keys
-      sarakkeet.each { |sarake| self.instance_variable_set(sarake,rivi[sarake]) }
-    end
+    super rivi
   end
 
-  def all
-    yhteys = Database.new.createConnection
 
-    res = yhteys.exec('SELECT * FROM Kilpailija')
-  end
 
-  def find(id)
-    yhteys = Database.new.createConnection
 
-    res = yhteys.exec_params('SELECT * FROM Kilpailija WHERE id == a', [id])
-  end
 
-  def save
 
-  end
 end
