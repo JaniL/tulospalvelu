@@ -8,6 +8,37 @@ class Kilpailija extends BaseModel{
   	// Konstruktori
 	public function __construct($attributes){
 		parent::__construct($attributes);
+		$this->validators = array('validate_nimi', 'validate_kansallisuus', 'validate_sukupuoli');
+	}
+
+	public function validate_nimi() {
+		$errors = array();
+		if ($this->nimi == '' || $this->nimi == null) {
+			$errors[] = "Nimi ei saa olla tyhjä!";
+		}
+		if(strlen($this->nimi) < 3){
+			$errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
+		}
+		return $errors;
+	}
+
+	public function validate_kansallisuus() {
+		$errors = array();
+		if ($this->kansallisuus == '' || $this->kansallisuus == null) {
+			$errors[] = "Kansallisuus ei saa olla tyhjä!";
+		}
+		if(strlen($this->kansallisuus) < 3){
+			$errors[] = 'Kansallisuuden tulee olla vähintään kolme merkkiä!';
+		}
+		return $errors;
+	}
+
+	public function validate_sukupuoli() {
+		$errors = array();
+		if (!($this->sukupuoli == 'M' || $this->sukupuoli == 'N')) {
+			$errors[] = "Sukupuoli määritelty väärin";
+		}
+		return $errors;
 	}
 
 	public static function all(){
@@ -54,6 +85,19 @@ class Kilpailija extends BaseModel{
 		$query->execute(array('nimi' => $this->nimi, 'kansallisuus' => $this->kansallisuus, 'sukupuoli' => $this->sukupuoli, 'syntynyt' => $this->syntynyt));
 		$row = $query->fetch();
 		$this->id = $row['id'];
+	}
+
+	public function update(){
+		$query = DB::connection()->prepare('UPDATE Kilpailija (nimi, kansallisuus, sukupuoli, syntynyt) VALUES (:nimi, :kansallisuus, :sukupuoli, :syntynyt) RETURNING id');
+		$query->execute(array('nimi' => $this->nimi, 'kansallisuus' => $this->kansallisuus, 'sukupuoli' => $this->sukupuoli, 'syntynyt' => $this->syntynyt));
+		$row = $query->fetch();
+		$this->id = $row['id'];
+	}
+
+	public function delete(){
+		$query = DB::connection()->prepare('DELETE FROM Kilpailija WHERE id == :id');
+		$query->execute();
+		// todo: tee tässä jotain olion kadottamiseen
 	}
 
 }
