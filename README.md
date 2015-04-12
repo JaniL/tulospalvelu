@@ -1,20 +1,16 @@
 # Hiihtokisojen tulospalvelu
 
-https://hiihtotulospalvelu.herokuapp.com
+**Huom.**
+
+Kieli vaihtunut Rubysta PHP:hen.
+
+http://jjluukko.users.cs.helsinki.fi/tulospalvelu/
 
 Tietokantasovellus-harjoitustyö
 
 Aiheen kuvaus: http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Hiihtokisojen_tulospalvelu.html
 
 Dokumentaatio: https://github.com/JaniL/tulospalvelu/raw/master/doc/dokumentaatio.pdf
-
-## How to run
-
-    git clone https://github.com/JaniL/tulospalvelu.git
-    bundle install
-    bundle exec foreman start
-
-## UI Demo
 
 Kisojen listaus / etusivu: http://hiihtotulospalvelu.herokuapp.com/
 
