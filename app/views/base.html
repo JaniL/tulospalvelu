@@ -1,64 +1,58 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Tulospalvelu</title>
 
-    <title>
-      {% block title %}
-        Tietokantasovellus
-      {% endblock %}
-    </title>
+  <!-- Bootstrap -->
+  <link href="{{base_path}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    {% block head %}
-      <!-- Bootstrap (tyylitiedosto) -->
-      <link href="{{base_path}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
 
-      <!-- Oma tyylitiedostomme -->
-      <link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
-    {% endblock %}
-  </head>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+  <![endif]-->
 
-  <body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="{{base_path}}/vendor/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="{{base_path}}/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+  <script src="{{base_path}}/assets/js/app.js"></script>
 
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Tsoha Bootstrap</a>
-        </div>
+</head>
+<body ng-app="tulospalvelu">
 
-        <div class="collapse navbar-collapse" id="navigation">
-          <ul class="nav navbar-nav">
-            <!-- Navigaation linkit -->
-            <li><a href="{{base_path}}">Etusivu</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div id="main-container">
-      <!-- Dynaaminen sisältö tulee tähän -->
-      {% block content %}{% endblock %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Tulospalvelu</a>
     </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li ><a href="/">Kisat</a></li>
+        <li><a href="/kilpailija">Kilpailijat</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
 
-    {% block body %}
-      <!-- jQuery -->
-      <script src="{{base_path}}/vendor/jquery.min.js"></script>
+{% block content %}{% endblock %}
 
-      <!-- Bootstrap (skriptitiedosto) -->
-      <script src="{{base_path}}/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-      <!-- Oma skriptitiedostomme -->
-      <script src="{{base_path}}/assets/js/site.js"></script>
-    {% endblock %}
-  </body>
+</body>
 </html>
