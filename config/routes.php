@@ -1,9 +1,9 @@
 <?php
 
   $routes->get('/', function() {
-    HelloWorldController::index();
+    HomeController::index();
   });
 
   $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
+    HomeController::sandbox();
   });

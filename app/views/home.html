@@ -1,11 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="page-header">
-    <h1>Tervetuloa Tsoha Bootstrappiin!</h1>
-  </div>
+<div class="container">
+  <h1>Kisat</h1>
 
-  <p>
-    <a href="http://tsoha.github.io" class="btn btn-primary btn-lg">Tutustu materiaaliin <span class="glyphicon glyphicon-chevron-right"></span></a>
-  </p>
+  <table class="table">
+    <thead>
+        <tr>
+          <th>Kisojen nimi</th>
+          <th>Päivämäärä</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+            <a href="/kisa/1">Kumpulan hiihtokisat</a>
+          </td>
+          <td>
+            26.3.2014
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 {% endblock %}
