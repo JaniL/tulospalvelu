@@ -7,3 +7,7 @@
   $routes->get('/hiekkalaatikko', function() {
     HomeController::sandbox();
   });
+
+  $routes->get('/api/kilpailijat/list', function() {
+  	KilpailijaController::list();
+  })
