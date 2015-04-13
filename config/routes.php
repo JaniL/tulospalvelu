@@ -10,4 +10,4 @@
 
   $routes->get('/api/kilpailijat/list', function() {
   	KilpailijaController::list();
-  })
+  });
