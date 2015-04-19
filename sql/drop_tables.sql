@@ -7,8 +7,13 @@ ALTER TABLE KisaLahtolista DROP CONSTRAINT KisaLahtolista_Kilpailija;
 
 ALTER TABLE KisaLahtolista DROP CONSTRAINT KisaLahtolista_Kisa;
 
+
+
+
+
 -- tables
 DROP TABLE Kilpailija;
 DROP TABLE Kisa;
 DROP TABLE KisaAika;
 DROP TABLE KisaLahtolista;
+DROP TABLE "User";
