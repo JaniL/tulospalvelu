@@ -1,8 +1,10 @@
 <?php
+ 
+  require 'app/models/kilpailija.php';
 
   class KilpailijaController extends BaseController{
 
-    public static function list(){
+    public static function all(){
       // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
    	  // View::make('home.html');
       $kilpailijat = Kilpailija::all();

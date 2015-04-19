@@ -3,7 +3,7 @@
 class Kilpailija extends BaseModel{
 
     // Attribuutit
-	public $id, $nimi, $kansallisuus, $sukupuoli, $syntynyt
+	public $id, $nimi, $kansallisuus, $sukupuoli, $syntynyt;
 
   	// Konstruktori
 	public function __construct($attributes){
