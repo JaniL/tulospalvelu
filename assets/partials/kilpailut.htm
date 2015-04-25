@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Kisat</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Kisojen nimi</th>
+            <th>Päivämäärä</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="kilpailu in kilpailut">
+            <td>
+                <a href="/kisa/1" ng-bind="kilpailu.nimi"></a>
+            </td>
+            <td ng-bind="kilpailu.alkaa">
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
