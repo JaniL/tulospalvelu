@@ -9,5 +9,9 @@
   });
 
   $routes->get('/api/kilpailijat/list', function() {
-  	KilpailijaController::list();
+    KilpailijaController::all();
+  });
+
+  $routes->get('/api/kilpailut/list', function() {
+      KilpailuController::all();
   });
