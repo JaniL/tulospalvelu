@@ -8,5 +8,5 @@ INSERT INTO Kisa (nimi, alkaa, valiaikapisteita) VALUES ('Kumpulan hiihtokisat',
 
 INSERT INTO KisaLahtolista (kisaId, kilpailijaId, sijoitus) VALUES (1,1,1);
 
-INSERT INTO KisaAika (kisaId,kilpailijaId,valiaikapiste,aika) VALUES (1,1,1,interval '5 seconds');
-INSERT INTO KisaAika (kisaId,kilpailijaId,valiaikapiste,aika) VALUES (1,1,2,interval '10 seconds');
+INSERT INTO KisaAika (kisaId,kilpailijaId,valiaikapiste,aika) VALUES (1,1,1,5000);
+INSERT INTO KisaAika (kisaId,kilpailijaId,valiaikapiste,aika) VALUES (1,1,2,10000);

@@ -3,7 +3,7 @@
 CREATE TABLE Kilpailija (
   id serial  NOT NULL,
   nimi varchar(200)  NOT NULL,
-  kansallisuus varchar(2)  NOT NULL DEFAULT FI,
+  kansallisuus varchar(2)  NOT NULL,
   sukupuoli varchar(1)  NOT NULL,
   syntynyt date  NOT NULL,
   CONSTRAINT Kilpailija_pk PRIMARY KEY (id)
@@ -28,7 +28,7 @@ CREATE TABLE KisaAika (
   kisaId int  NOT NULL,
   kilpailijaId int  NOT NULL,
   valiaikapiste int  NOT NULL,
-  aika interval  NOT NULL,
+  aika int  NOT NULL,
   CONSTRAINT KisaAika_pk PRIMARY KEY (id)
 );
 
