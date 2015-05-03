@@ -12,9 +12,9 @@ Aiheen kuvaus: http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aih
 
 Dokumentaatio: https://github.com/JaniL/tulospalvelu/raw/master/doc/dokumentaatio.pdf
 
-Kisojen listaus / etusivu: http://hiihtotulospalvelu.herokuapp.com/
+Kisojen listaus / etusivu: http://jjluukko.users.cs.helsinki.fi/tulospalvelu/#/kilpailut
 
-Kisatulokset: http://hiihtotulospalvelu.herokuapp.com/kisa/1
+Kisatulokset: http://jjluukko.users.cs.helsinki.fi/tulospalvelu/#/kisa/1
 
-Kilpailijoiden listaus: http://hiihtotulospalvelu.herokuapp.com/kilpailija
+Kilpailijoiden listaus: http://jjluukko.users.cs.helsinki.fi/tulospalvelu/#/kilpailijat
 
