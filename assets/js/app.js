@@ -4,7 +4,8 @@
 var tulospalveluApp = angular.module('tulospalveluApp', [
     'ngRoute',
     'angular-jwt',
-    'tulospalveluControllers'
+    'tulospalveluControllers',
+    'angular-loading-bar'
 ]);
 
 tulospalveluApp.config(['$routeProvider','$httpProvider', 'jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
@@ -19,7 +20,7 @@ tulospalveluApp.config(['$routeProvider','$httpProvider', 'jwtInterceptorProvide
         }).
         when('/kilpailut', {
             templateUrl: 'assets/partials/kilpailut.htm',
-            controller: 'KilpailuListaController'
+            controller: 'KilpailutController'
         }).
         when('/kisa/:kisaId', {
             templateUrl: 'assets/partials/kilpailu.htm',

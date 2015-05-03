@@ -1,0 +1,122 @@
+<div class="container">
+    <h1>{{data.kilpailu.nimi}} <small>{{data.kilpailu.alkaa}}</small></h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Lisää aika</h2>
+
+            <form>
+                <div class="form-group form-inline">
+                    <label for="kilpailija">Kilpailija</label>
+                    <select class="form-control" ng-model="aika.nimi" required="">
+                        <option ng-repeat="d in data.lahtolista" ng-bind="d.kilpailija.nimi" value="{{d.kilpailija.id}}"></option>
+                    </select>
+                    <label for="valipiste">Välipiste</label>
+                    <input class="form-control" type="number" ng-model="aika.valipiste" name="valipiste" min="1" max="{{kilpailu.valiaikapisteita}}" ng-max="{{kilpailu.valiaikapisteita}}" step="1" value="1" required="" />
+                </div>
+
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label for="aika">Aika</label>
+                        <input ng-model="aika.minuutit" type="number" min="0" step="1" class="input-sm form-control" id="minuutit" placeholder="Minuutit" required="">
+                        <input ng-model="aika.sekunnit" type="number" min="0" step="1" class="input-sm form-control" id="minuutit" placeholder="Sekunnit" required="">
+                        <input ng-model="aika.millisekunnit" type="number" min="0" max="999" step="1" class="input-sm form-control" id="minuutit" placeholder="Millisekunnit" required="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="lisaaAika(aika)">Lisää</button>
+                </div>
+
+
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2>Lisää kilpailija lähtölistaan</h2>
+            <form>
+                <div class="form-group form-inline">
+                    <label for="lahtoKilpailija">Kilpailija</label>
+                    <select class="form-control" ng-model="kilpailija.nimi" required="">
+                        <option ng-repeat="kilpailija in kilpailijat" value="{{kilpailija.id}}" ng-bind="kilpailija.nimi"></option>
+                    </select>
+                    <label for="lahtosijoitus">Lähtösijoitus</label>
+                    <input class="form-control" type="number" ng-model="kilpailija.lahtosijoitus" name="lahtosijoitus" min="1" step="1" value="1" required="" />
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="lisaaLahtolistaan(kilpailija.nimi,kilpailija.lahtosijoitus)">Lisää</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a  aria-controls="lahtolista" role="tab" data-toggle="tab" ng-click="showTab(0)">Lähtölista</a></li>
+        <li role="presentation" ng-repeat="i in getNumber(data.kilpailu.valiaikapisteita) track by $index">
+            <a aria-controls="valipiste" role="tab" data-toggle="tab" ng-if="$index+1!=data.kilpailu.valiaikapisteita" ng-click="showTab($index+1)">{{$index+1}}. välipiste</a>
+        </li>
+        <li role="presentation"><a  aria-controls="valipiste" role="tab" data-toggle="tab" ng-click="showTab(data.kilpailu.valiaikapisteita)">Lopputulokset</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="lahtolista">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Lähtösijoitus</th>
+                    <th>Kilpailija</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="sijoitus in data.lahtolista | orderBy:'sijoitus':reverse">
+                    <td ng-bind="sijoitus.sijoitus"></td>
+                    <td ng-bind="sijoitus.kilpailija.nimi"></td>
+                    <td><a ng-click="poistaLahtolistasta(sijoitus.kilpailija.id)">Poista</a></td>
+                    <td><a ng-if="$index>=1" ng-click="vaihdaSijoitukset(sijoitus.sijoitus,sijoitus.sijoitus-1)">Siirrä ylös</a></td>
+                    <td><a ng-if="$index<data.lahtolista.length-1" ng-click="vaihdaSijoitukset(sijoitus.sijoitus,sijoitus.sijoitus+1)">Siirrä alas</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="valipiste">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Sijoitus</th>
+                    <th>Kilpailija</th>
+                    <th>Aika</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="sijoitus in data.kilpailu.valiaikapisteet | filter:{valiaikapiste:valipiste} | orderBy:'+aika'">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="sijoitus.kilpailija.nimi"></td>
+                    <td ng-bind="aika(sijoitus.aika)"></td>
+                    <td><a ng-click="poistaAika(sijoitus.kilpailija.id,valipiste)">Poista</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+
+<!--
+<script>
+    $(document).ready(function() {
+        $('#nav a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    })
+
+</script>-->

@@ -24,7 +24,7 @@
         $errors[] = $this->{$validator}();
       }
 
-      $errors = array_merge($errors, $validator_errors);
+      // $errors = array_merge($errors, $validator_errors);
 
       return $errors;
     }

@@ -1,5 +1,6 @@
 <?php
 
+    require 'app/models/lahtolistasijoitus.php';
   class HomeController extends BaseController{
 
     public static function index(){
@@ -9,6 +10,7 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      echo 'Hello World!';
+        echo json_encode(LahtolistaSijoitus::findBykisaId(1));
+      //echo 'Hello World!';
     }
   }

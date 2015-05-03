@@ -45,7 +45,7 @@ class Kilpailija extends BaseModel{
 		$query = DB::connection()->prepare('SELECT * FROM Kilpailija');
 		$query->execute();
 		$rows = $query->fetchAll();
-		$games = array();
+		$kilpailijat = array();
 
 		foreach($rows as $row){
 			$kilpailijat[] = new Kilpailija(array(
@@ -99,5 +99,12 @@ class Kilpailija extends BaseModel{
 		$query->execute();
 		// todo: tee tässä jotain olion kadottamiseen
 	}
+
+    public static function deleteId($id) {
+        $query = DB::connection()->prepare('DELETE FROM Kilpailija WHERE id = :id');
+        $query->execute(array(
+            'id' => $id
+        ));
+    }
 
 }

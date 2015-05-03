@@ -23,7 +23,7 @@
   }
 
   // Asetetaan vastauksen Content-Type-otsake, jotta ääkköset näkyvät normaalisti
-  header('Content-Type: text/html; charset=utf-8');
+  // header('Content-Type: text/html; charset=utf-8');
 
   // Otetaan Composer käyttöön
   require 'vendor/autoload.php';
