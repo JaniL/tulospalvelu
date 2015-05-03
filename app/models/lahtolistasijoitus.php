@@ -12,6 +12,11 @@ class LahtolistaSijoitus extends BaseModel {
         // $this->validators = array('validate_nimi', 'validate_kansallisuus', 'validate_sukupuoli');
     }
 
+    /**
+     * Hakee tietokannasta lähtölistan kilpailun id:n perusteella
+     * @param $kisaId
+     * @return array
+     */
     public static function findBykisaId($kisaId) {
         $query = DB::connection()->prepare('SELECT * FROM KisaLahtoLista INNER JOIN Kilpailija on KisaLahtoLista.kilpailijaId=Kilpailija.id INNER JOIN Kisa on KisaLahtoLista.kisaId=Kisa.id WHERE kisaId = :id');
         $query->execute(array('id' => $kisaId));
@@ -25,6 +30,12 @@ class LahtolistaSijoitus extends BaseModel {
         return $lahtolista;
     }
 
+    /**
+     * Hakee tietokannasta lähtösijoituksen annetun kilpailun id:n ja sijoituksen perusteella
+     * @param $kisaId
+     * @param $sijoitus
+     * @return LahtolistaSijoitus|null
+     */
     public static function findBykisaIdAndSijoitus($kisaId,$sijoitus) {
         $query = DB::connection()->prepare('SELECT * FROM KisaLahtoLista INNER JOIN Kilpailija on KisaLahtoLista.kilpailijaId=Kilpailija.id INNER JOIN Kisa on KisaLahtoLista.kisaId=Kisa.id WHERE kisaId = :id AND sijoitus = :sijoitus LIMIT 1');
         $query->execute(array(
@@ -40,6 +51,9 @@ class LahtolistaSijoitus extends BaseModel {
         return null;
     }
 
+    /**
+     * Tallentaa sijoituksen tietokantaan
+     */
     public function save(){
 
         Kint::dump(self::findBykisaIdAndSijoitus($this->kisaId,$this->sijoitus));
@@ -58,6 +72,9 @@ class LahtolistaSijoitus extends BaseModel {
         $this->id = $row['id'];
     }
 
+    /**
+     * Päivittää olemassaolevan sijoituksen tietokantaan
+     */
     public function update(){
         $query = DB::connection()->prepare('UPDATE Kilpailija (kisaId, kilpailijaId, sijoitus) VALUES (:kisaId, :kilpailijaId, :sijoitus) RETURNING id');
         $query->execute(array(
@@ -70,6 +87,7 @@ class LahtolistaSijoitus extends BaseModel {
     }
 
     /**
+     * Luo olion annettujen attribuuttien perusteella
      * @param $row
      * @return LahtolistaSijoitus
      */
@@ -96,10 +114,9 @@ class LahtolistaSijoitus extends BaseModel {
         ));
     }
 
-    public function asetaSijoitus($uusiSijoitus) {
-        // todo
-    }
-
+    /**
+     * Poistaa sijoituksen tietokannasta
+     */
     public function delete(){
         $tempSijoitus = $this['sijoitus'];
         $query = DB::connection()->prepare('DELETE FROM KisaLahtoLista WHERE id = :id');
@@ -110,6 +127,11 @@ class LahtolistaSijoitus extends BaseModel {
         // todo: tee tässä jotain olion kadottamiseen
     }
 
+    /**
+     * Poistaa sijoitukset joiden kilpailuid ja kilpailijaid täsmää
+     * @param $kisa
+     * @param $kilpailija
+     */
     public static function deleteWhereKisaIdAndKilpailijaId($kisa, $kilpailija) {
         $query = DB::connection()->prepare('DELETE FROM KisaLahtoLista WHERE kisaId = :id AND kilpailijaId = :kilId RETURNING sijoitus');
         $query->execute(array(

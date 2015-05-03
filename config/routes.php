@@ -8,13 +8,33 @@
     HomeController::sandbox();
   });
 
+
+/**
+ * Kilpailijaan liittyvät routet
+ */
   $routes->get('/api/kilpailijat/list', function() {
     KilpailijaController::all();
   });
 
-  $routes->get('/api/kilpailut/list', function() {
-      KilpailuController::all();
-  });
+    $routes->post('/api/kilpailijat/paivita', function() {
+        KilpailijaController::paivita();
+    });
+
+    $routes->post('/api/kilpailijat/lisaa', function() {
+        KilpailijaController::lisaa();
+    });
+
+    $routes->post('/api/kilpailijat/poista', function() {
+        KilpailijaController::poista();
+    });
+
+/**
+ * Kilpailuun liittyvät routet
+ */
+
+$routes->get('/api/kilpailut/list', function() {
+    KilpailuController::all();
+});
 
   $routes->get('/api/kilpailut/id/:kisaId', function($kisaId) {
      KilpailuController::findById($kisaId);
@@ -44,18 +64,14 @@
       KilpailuController::poistaAika();
   });
 
-  $routes->post('/api/kilpailijat/lisaa', function() {
-    KilpailijaController::lisaa();
-  });
-
-  $routes->post('/api/kilpailijat/poista', function() {
-      KilpailijaController::poista();
-  });
-
   $routes->post('/api/kilpailut/lisaa', function() {
       KilpailuController::lisaaKisa();
   });
 
   $routes->post('/api/kilpailut/poista', function() {
       KilpailuController::poistaKisa();
+  });
+
+  $routes->post('/api/kilpailut/paivita', function() {
+      KilpailuController::muokkaaKisa();
   });

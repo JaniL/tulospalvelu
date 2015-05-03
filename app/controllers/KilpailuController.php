@@ -9,6 +9,9 @@
 // require 'app/models/kilpailu.php';
 require 'app/models/lahtolistasijoitus.php';
 class KilpailuController extends  BaseController {
+    /**
+     * Palauttaa kaikki kilpailut jsonina.
+     */
     public static function all() {
         $kilpailut = Kilpailu::all();
 
@@ -16,6 +19,10 @@ class KilpailuController extends  BaseController {
         echo json_encode($kilpailut);
     }
 
+    /**
+     * Palauttaa pyydetyn kilpailun tiedot jsonina.
+     * @param $kisaId Pyydetyn kilpailun id
+     */
     public static function findById($kisaId) {
 
         $kisa = Kilpailu::find($kisaId);
@@ -36,6 +43,10 @@ class KilpailuController extends  BaseController {
 
     }
 
+    /**
+     * Palauttaa halutun kilpailun lähtölistan jsonina
+     * @param $kisaId Kilpailun id
+     */
     public static function findLahtolistaByKisaId($kisaId) {
         $sijoitukset = LahtolistaSijoitus::findBykisaId($kisaId);
 
@@ -43,10 +54,10 @@ class KilpailuController extends  BaseController {
         echo json_encode($sijoitukset);
     }
 
-    public static function lisaaSijoitus() {
-        echo $_POST;
-    }
 
+    /**
+     * Lisää ilmoitetulle kilpailijalle lähtösijoituksen haluttuun kilpailuun
+     */
     public static function lisaaLahtosijoitus() {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -64,6 +75,9 @@ class KilpailuController extends  BaseController {
         echo "OK";
     }
 
+    /**
+     * Poistaa ilmoitetun kilpailijan lähtösijoituksen kilpailusta
+     */
     public static function poistaLahtosijoitus() {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -75,6 +89,9 @@ class KilpailuController extends  BaseController {
         echo "OK";
     }
 
+    /**
+     * Vaihtaa annettujen lähtösijoitusten paikkoja keskenään
+     */
     public static function vaihdaSijoitukset() {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -87,6 +104,9 @@ class KilpailuController extends  BaseController {
         echo "OK";
     }
 
+    /**
+     * Lisää kilpailijalle ajan annetussa kisan välipisteessä
+     */
     public static function lisaaAika() {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -114,6 +134,9 @@ class KilpailuController extends  BaseController {
         echo "OK";
     }
 
+    /**
+     * Poistaa kilpailijalle annetun ajan
+     */
     public static function poistaAika() {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -126,6 +149,9 @@ class KilpailuController extends  BaseController {
         echo "OK";
     }
 
+    /**
+     * Lisää järjestelmään kilpailu
+     */
     public static function lisaaKisa() {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -144,6 +170,9 @@ class KilpailuController extends  BaseController {
         echo $olio->id;
     }
 
+    /**
+     * Poistaa järjestelmästä pyydetty kilpailu
+     */
     public static function poistaKisa() {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -152,6 +181,19 @@ class KilpailuController extends  BaseController {
         $k = Kilpailu::find($id);
 
         $k->delete();
+
+        echo "OK";
+    }
+
+    /**
+     * Päivittää kilpailun tiedot.
+     */
+    public static function muokkaaKisa() {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $olio = new Kilpailu($data);
+
+        $olio->update();
 
         echo "OK";
     }

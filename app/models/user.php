@@ -6,6 +6,10 @@
  * Time: 21.01
  */
 
+/**
+ * Class User
+ * Vanhaa koodia, ei käytössä :(
+ */
 class User extends BaseModel{
     // Attribuutit
     public $id, $username, $password, $active;

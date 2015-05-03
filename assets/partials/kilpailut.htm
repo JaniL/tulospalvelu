@@ -7,6 +7,7 @@
             <th>Kisojen nimi</th>
             <th>Päivämäärä</th>
             <th>&nbsp;</th>
+            <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
@@ -17,6 +18,7 @@
             <td ng-bind="kilpailu.alkaa">
 
             </td>
+            <td><a ng-click="muokkaaKisa(kilpailu)">Muokkaa</a></td>
             <td><a ng-click="poistaKisa(kilpailu.id)">Poista</a></td>
         </tr>
         </tbody>
@@ -24,13 +26,13 @@
 
     <h1>Luo kisa</h1>
 
-    <form>
+    <form name="kisa">
         <label for="nimi">Nimi</label>
-        <input type="text" id="nimi" ng-model="kisa.nimi" required="" />
+        <input type="text" id="nimi" ng-model="nimi" required />
         <label for="pvm">Päivämäärä</label>
-        <input type="date" id="pvm" ng-model="kisa.pvm" required="" />
+        <input type="date" id="pvm" ng-model="pvm" required/>
         <label for="valipisteet">Välipisteitä</label>
-        <input type="number" min="1" step="1" id="valipisteet" ng-model="kisa.valipisteet" required="" />
+        <input type="number" min="1" step="1" id="valipisteet" ng-model="valipisteet" required="" />
         <button type="button" class="btn btn-primary" ng-click="lisaaKisa()">Lisää</button>
     </form>
 </div>

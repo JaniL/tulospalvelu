@@ -8,16 +8,23 @@ function parseDate(date) {
 
 var tulospalveluControllers = angular.module('tulospalveluControllers', []);
 
+/**
+ * Kilpailijoiden listaus
+ */
 tulospalveluControllers.controller('KilpailijaController', ['$scope', '$http', function($scope, $http) {
     $http.get('api/kilpailijat/list').success(function(data) {
         $scope.kilpailijat = data;
     });
 
     $scope.lisaaKilpailija = function() {
+        if ($scope.kilpailijalomake.$invalid) {
+            alert("Täytä kaikki kentät!");
+            return;
+        }
         var data = {
-            nimi: $scope.kilpailija.nimi,
-            kansallisuus: $scope.kilpailija.kansallisuus,
-            syntynyt: parseDate($scope.kilpailija.syntymaaika)
+            nimi: $scope.kilpailijalomake.nimi,
+            kansallisuus: $scope.kilpailijalomake.kansallisuus,
+            syntynyt: parseDate($scope.kilpailijalomake.syntymaaika)
         };
         $http.post('api/kilpailijat/lisaa', data).success(function(res) {
             data['id'] = parseInt(res);
@@ -26,7 +33,7 @@ tulospalveluControllers.controller('KilpailijaController', ['$scope', '$http', f
     }
 
     $scope.poistaKilpailija = function(id) {
-        return;
+        // return;
         $http.post('api/kilpailijat/poista', {
             id: id
         }).success(function(res) {
@@ -36,13 +43,22 @@ tulospalveluControllers.controller('KilpailijaController', ['$scope', '$http', f
         });
     }
 
+    $scope.muokkaaKilpailija = function(kilpailija) {
+        kilpailija.nimi = prompt("Kilpailijan nimi", kilpailija.nimi);
+        kilpailija.kansallisuus = prompt("Kilpailijan kansallisuus", kilpailija.kansallisuus);
+        kilpailija.syntynyt = prompt("Kilpailijan syntymäaika", kilpailija.syntynyt);
+
+        $http.post('api/kilpailijat/paivita', kilpailija);
+    }
+
     $scope.editMode = null;
 
-    $scope.muokkaaKilpailija = function() {
-        return;
-    }
+
 }]);
 
+/**
+ * Kilpailun tietojen listaus (mm. lähtölista ja välipisteiden sijoitukset)
+ */
 tulospalveluControllers.controller('KilpailuController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
 
     $scope.getNumber = function(n) {
@@ -192,6 +208,9 @@ tulospalveluControllers.controller('KilpailuController', ['$scope', '$http', '$r
     });
 }]);
 
+/**
+ * Kilpailujen listaus
+ */
 tulospalveluControllers.controller('KilpailutController', ['$scope', '$http', function($scope, $http) {
     // todo
     $scope.kilpailut = [];
@@ -209,6 +228,10 @@ tulospalveluControllers.controller('KilpailutController', ['$scope', '$http', fu
     });
 
     $scope.lisaaKisa = function() {
+        if ($scope.kisa.$invalid) {
+            alert("Täytä kaikki kentät!");
+            return;
+        }
         var data = {
             nimi: $scope.kisa.nimi,
             alkaa: parseDate($scope.kisa.pvm),
@@ -219,6 +242,12 @@ tulospalveluControllers.controller('KilpailutController', ['$scope', '$http', fu
             $scope.kilpailut.push(data);
         })
     }
+
+    $scope.muokkaaKisa = function(kisa) {
+        kisa.nimi = prompt("Kisan nimi", kisa.nimi);
+        kisa.alkaa = prompt("Kisan päivämäärä", kisa.alkaa);
+        $http.post('api/kilpailut/paivita', kisa);
+    };
 
     $scope.poistaKisa = function(id) {
         $http.post('api/kilpailut/poista', {

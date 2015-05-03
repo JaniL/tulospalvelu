@@ -11,6 +11,10 @@ class KisaAika extends BaseModel {
         $this->validators = array('validate_valiaika');
     }
 
+    /**
+     * Validoi valiaikapiste-attribuutin
+     * @return array Mahdolliset virheilmoitukset
+     */
     public function validate_valiaika() {
         $errors = array();
         $kilpailu = Kilpailu::find($this->id);
@@ -27,6 +31,10 @@ class KisaAika extends BaseModel {
         return $errors;
     }
 
+    /**
+     * Palauttaa kaikki tietokannassa olevat kisa-ajat
+     * @return array Kaikki tietokannassa olevat kisa-ajat
+     */
     public static function all(){
         $query = DB::connection()->prepare('SELECT * FROM KisaAika');
         $query->execute();
@@ -40,6 +48,9 @@ class KisaAika extends BaseModel {
         return $ajat;
     }
 
+    /**
+     * Tallentaa kisa-ajan tietokantaan
+     */
     public function save(){
         $query = DB::connection()->prepare('INSERT INTO KisaAika (kisaId, kilpailijaId, valiaikapiste, aika) VALUES (:kisaId, :kilpailijaId, :valiaikapiste, :aika) RETURNING id');
         $query->execute(array('kisaId' => $this->kisaId, 'kilpailijaId' => $this->kilpailijaId, 'valiaikapiste' => $this->valiaikapiste, 'aika' => $this->aika));
@@ -51,6 +62,11 @@ class KisaAika extends BaseModel {
         return self::findByKisaId($kisa['id']);
     }
 
+    /**
+     * Hakee kisa-ajatn annetun kilpailun id:n perusteella
+     * @param $kisaId
+     * @return array
+     */
     public static function findByKisaId($kisaId){
         $query = DB::connection()->prepare('SELECT * FROM KisaAika WHERE kisaId = :kisaId');
         $query->execute(array(
@@ -66,12 +82,21 @@ class KisaAika extends BaseModel {
         return $ajat;
     }
 
+    /**
+     * Poistaa kisa-ajan tietokannasta
+     */
     public function delete(){
         $query = DB::connection()->prepare('DELETE FROM KisaAika WHERE id = :id');
         $query->execute();
         // todo: tee tässä jotain olion kadottamiseen
     }
 
+    /**
+     * Poistaa tietyn kilpailijan ajan tietyn kilpailuid:n väliaikapisteestä.
+     * @param $kilpailijaId
+     * @param $kilpailuId
+     * @param $valiaikapiste
+     */
     public static function deleteCertain($kilpailijaId,$kilpailuId,$valiaikapiste) {
         $query = DB::connection()->prepare('DELETE FROM KisaAika WHERE kilpailijaId = :kilpailijaId AND kisaId = :kilpailuId AND valiaikapiste = :valiaikapiste');
         $query->execute(array(
@@ -82,6 +107,7 @@ class KisaAika extends BaseModel {
     }
 
     /**
+     * Luo olion annettujen attribuuttien perusteella
      * @param $row
      * @return Kilpailija
      */

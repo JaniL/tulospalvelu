@@ -17,6 +17,10 @@ class Kilpailu extends BaseModel {
         // $this->validators = array('validate_nimi', 'validate_kansallisuus', 'validate_sukupuoli');
     }
 
+    /**
+     * Palauttaa tietokannasta kaikki kilpailut
+     * @return array Kaikki tietokannassa olevat kilpailut
+     */
     public static function all(){
         $query = DB::connection()->prepare('SELECT * FROM Kisa');
         $query->execute();
@@ -30,6 +34,11 @@ class Kilpailu extends BaseModel {
         return $kilpailut;
     }
 
+    /**
+     * Palauttaa tietokannasta kilpailun, jolla on $id
+     * @param $id Kilpailun id
+     * @return Kilpailu|null
+     */
     public static function find($id){
         $query = DB::connection()->prepare('SELECT * FROM Kisa WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
@@ -45,6 +54,7 @@ class Kilpailu extends BaseModel {
     }
 
     /**
+     * Luo Kilpailu-olion annetun arrayn perusteella
      * @param $row
      * @return Kilpailu
      */
@@ -65,6 +75,9 @@ class Kilpailu extends BaseModel {
         return null;
     } */
 
+    /**
+     * Tallentaa Kilpailu-olion tietokantaan
+     */
     public function save(){
             $query = DB::connection()->prepare('INSERT INTO Kisa (nimi, alkaa, valiaikapisteita) VALUES (:nimi, :alkaa, :valiaikapisteita) RETURNING id');
             $query->execute(array(
@@ -77,13 +90,17 @@ class Kilpailu extends BaseModel {
             $this->id = $row['id'];
     }
 
-/*    public function update(){
-        $query = DB::connection()->prepare('UPDATE Kilpailija (nimi, kansallisuus, sukupuoli, syntynyt) VALUES (:nimi, :kansallisuus, :sukupuoli, :syntynyt) RETURNING id');
-        $query->execute(array('nimi' => $this->nimi, 'kansallisuus' => $this->kansallisuus, 'sukupuoli' => $this->sukupuoli, 'syntynyt' => $this->syntynyt));
-        $row = $query->fetch();
-        $this->id = $row['id'];
-    }*/
+    /**
+     * Päivittää olemassaolevan Kilpailun tietokantaan
+     */
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE Kisa SET nimi = :nimi, alkaa = :alkaa WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi, 'alkaa' => $this->alkaa, 'id' => $this->id));
+    }
 
+    /**
+     * Poistaa kilpailun ja samalla siihen liittyvät ajat ja lähtösijoitukset tietokannasta.
+     */
     public function delete(){
         $tempId = $this->id;
         $query = DB::connection()->prepare('DELETE FROM Kisa WHERE id = :id');

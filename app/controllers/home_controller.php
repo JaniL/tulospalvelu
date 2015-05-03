@@ -3,6 +3,9 @@
     require 'app/models/lahtolistasijoitus.php';
   class HomeController extends BaseController{
 
+      /**
+       * Renderöi kotinäkymän (viewn jossa on mm. ng-view)
+       */
     public static function index(){
       // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
    	  View::make('home.html');

@@ -8,6 +8,9 @@ var tulospalveluApp = angular.module('tulospalveluApp', [
     'angular-loading-bar'
 ]);
 
+/**
+ * Määritellään angularin reititys
+ */
 tulospalveluApp.config(['$routeProvider','$httpProvider', 'jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
     /*jwtInterceptorProvider.tokenGetter = function() {
         return localStorage.getItem('id_token');

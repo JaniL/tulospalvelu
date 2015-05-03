@@ -2,6 +2,10 @@
  * Created by jani on 19.4.2015.
  */
 
+
+/**
+ * Vanhaa koodia, ei käytössä
+ */
 var user = angular.module('user', []);
 
 user.factory('AuthService', function($http, Session) {
