@@ -9,7 +9,7 @@
 
         try {
             // Alustetaan PDO
-            if(isset($config['username'])){
+            if(isset($config['username']) && $config['username'] !== null && $config['username'] !== ''){
               $connection = new PDO($config['resource'], $config['username'], $config['password']);
             }else{
               $connection = new PDO($config['resource']);

@@ -1,0 +1,11 @@
+.git
+.gitignore
+.DS_Store
+doc
+php_logs.sh
+bootstrap.sh
+deploy.sh
+create_tables.sh
+drop_tables.sh
+add_test_data.sh
+config/environment.sh

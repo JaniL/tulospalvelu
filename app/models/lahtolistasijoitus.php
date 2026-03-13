@@ -56,7 +56,6 @@ class LahtolistaSijoitus extends BaseModel {
      */
     public function save(){
 
-        Kint::dump(self::findBykisaIdAndSijoitus($this->kisaId,$this->sijoitus));
         if (self::findBykisaIdAndSijoitus($this->kisaId,$this->sijoitus) != null) {
             $query = DB::connection()->prepare('UPDATE KisaLahtoLista SET sijoitus = (sijoitus+1) WHERE sijoitus >= :sijoitus AND kisaId = :kisaId');
             $query->execute(array('sijoitus' => $this->sijoitus, 'kisaId' => $this->kisaId));
