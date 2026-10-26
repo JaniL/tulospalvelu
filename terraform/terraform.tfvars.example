@@ -1,0 +1,10 @@
+# Copy to terraform.tfvars and fill in.
+# Credentials stay in env vars: SCW_ACCESS_KEY / SCW_SECRET_KEY.
+
+scw_project_id = "YOUR_SCALEWAY_PROJECT_ID"
+
+# Optional overrides:
+# db_max_cpu          = 8
+# deploy_container    = false
+# container_image_tag = "latest"
+# scw_zone            = "fr-par-1"
