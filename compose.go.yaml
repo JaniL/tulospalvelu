@@ -1,0 +1,35 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-go
+    container_name: tulospalvelu-go-web
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://tulospalvelu:tulospalvelu@db:5432/tulospalvelu?sslmode=disable
+      SEED_TEST_DATA: "true"
+      GEO_RESTRICT: "false"
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  db:
+    image: docker.io/library/postgres:15-alpine
+    container_name: tulospalvelu-go-db
+    environment:
+      POSTGRES_DB: tulospalvelu
+      POSTGRES_USER: tulospalvelu
+      POSTGRES_PASSWORD: tulospalvelu
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres-go-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres-go-data:

@@ -9,3 +9,6 @@ create_tables.sh
 drop_tables.sh
 add_test_data.sh
 config/environment.sh
+terraform
+*.tfstate
+*.tfstate.*

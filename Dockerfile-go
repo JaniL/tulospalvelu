@@ -1,0 +1,30 @@
+# Go-versio tulospalvelusta.
+# Huom: composerin vendor/-kansio on mukana kontissa, koska PHP:n
+# staattiset tiedostot upotetaan binaryyn (go:embed). GOFLAGS=-mod=mod
+# estää Go-työkalua käytämästä vendor/-kansiota riippuvuuksiin.
+FROM docker.io/library/golang:1.27-alpine AS build
+
+WORKDIR /src
+
+ENV CGO_ENABLED=0 GOFLAGS=-mod=mod
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY embed.go index.html ./
+COPY cmd cmd
+COPY internal internal
+COPY assets assets
+COPY vendor vendor
+
+RUN go build -trimpath -o /out/tulospalvelu ./cmd/server
+
+FROM gcr.io/distroless/static-debian12:nonroot
+
+COPY --from=build /out/tulospalvelu /tulospalvelu
+
+EXPOSE 8080
+
+USER 65532:65532
+
+ENTRYPOINT ["/tulospalvelu"]
